@@ -1,3 +1,4 @@
+from django import forms
 from django.shortcuts import redirect
 from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView, FormView
@@ -48,9 +49,17 @@ class BlogList(LoginRequiredMixin, ListView):
         return context
 
 
+class PostForm(forms.ModelForm):
+    class Meta:
+        model = BlogPost
+        fields = ['title', 'context', 'date_added']
+        widgets = {
+            'date_added': forms.DateInput(attrs={'type': 'date'}),
+        }
+
 class PostUpdate(LoginRequiredMixin, UpdateView):
     model = BlogPost
-    fields = '__all__'
+    form_class = PostForm
     success_url = reverse_lazy('posts')
 
 
@@ -62,7 +71,7 @@ class DeleteView(LoginRequiredMixin, DeleteView):
 
 class PostCreate(LoginRequiredMixin, CreateView):
     model = BlogPost
-    fields = ['title', 'context', 'date_added']
+    form_class = PostForm
     success_url = reverse_lazy('posts')
 
     def form_valid(self, form):
