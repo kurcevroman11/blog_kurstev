@@ -1,0 +1,9 @@
+version: '3.8'
+
+services:
+   testblog:
+       build:
+         context: ../
+         dockerfile: docker/Dockerfile
+       ports:
+           - "3001:8000"

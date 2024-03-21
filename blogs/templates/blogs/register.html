@@ -1,14 +1,34 @@
-{% extends 'blogs/base.html' %}
-{% block content %}
-<h1>Register</h1>
+{% extends 'blogs/base.html' %} {% block content %}
 
-<form method="POST">
-    {% csrf_token %}
-    {{form.as_p}}
-    <input type="submit" value="Register">
-</form>
+<div class="row h-50" style="min-height: 90vh">
+  <div class="col-sm-12 h-100 d-table" style="min-height: 85vh">
+    <div
+      class="h-100 d-flex flex-column align-items-center justify-content-center"
+    >
+      <h1>Register</h1>
+      <form class="d-flex flex-column mt-3 mb-3" method="POST">
+        {% csrf_token %}
 
+        <label>{{form.username.label}}</label>
+        {{form.username}}
 
-<p>Already have an account? <a href="{% url 'login' %}"> Login</a></p>
+        <dvi class="d-flex flex-column mt-3 mb-3">
+          <label>{{form.password1.label}}</label>
+          {{form.password1}}
+        </dvi>
+
+        <dvi class="d-flex flex-column mb-3">
+          <label>{{form.password2.label}}</label>
+          {{form.password2}}
+        </dvi>
+
+        <button  type="submit" class="btn btn-primary btn-block">
+          Login
+        </button>
+      </form>
+      <p>Already have an account? <a href="{% url 'login' %}"> Login</a></p>
+    </div>
+  </div>
+</div>
 
 {% endblock content %}
